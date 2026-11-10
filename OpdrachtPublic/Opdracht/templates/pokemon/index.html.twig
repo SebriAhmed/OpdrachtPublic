@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pokemon kaarten overzicht{% endblock %}
+
+{% block body %}
+    <h1>Pokemon kaarten</h1>
+
+    <div class="container">
+        <div class="row">
+            {% for pokemon in pokemons %}
+                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="card flex-grow-1">
+                        <img src="{{ asset('images/' ~ pokemon.image) }}" class="card-img-top object-fit-cover" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ pokemon.name }}</h5>
+                            <p class="card-text">&euro;{{ pokemon.cardValue|number_format(2, ',', '.') }}</p>
+                        </div>
+                        <a href="#" class="btn btn-info">Meer info</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
