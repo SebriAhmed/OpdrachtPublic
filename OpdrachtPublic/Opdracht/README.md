@@ -9,17 +9,26 @@ Links die je kunt gebruiken:
 - https://symfony.com/doc/7.4
 - https://getbootstrap.com/
 
+## Functies
+
+- Overzicht van alle Pokemon kaarten
+- Details van een kaart bekijken
+- Kaarten toevoegen en wijzigen
+- Kaarten verwijderen na een bevestiging
+- Meegeleverde database-export met voorbeelddata
+
 ## Installatie
-Clone de repository naar jouw computer/ laptop/ device
 
-Pas de juiste DATABASE_URL regel toe (haal het # teken ervoor weg).
+1. Clone de repository en open de map `OpdrachtPublic/Opdracht`.
+2. Voer `composer install` uit.
+3. Importeer `backup/pokemon_shop.sql` in PHPMyAdmin. De database `pokemon_shop` wordt daarbij aangemaakt.
+4. Pas zo nodig `DATABASE_URL` aan in een nieuw bestand `.env.local`. De standaardconfiguratie gebruikt MySQL/MariaDB met gebruiker `root` en een leeg wachtwoord.
+5. Start de applicatie met `symfony serve`.
 
-Stel de juiste username (root), wachtwoord (leeg) en database naam in.
+De database-export bevat de tabellen, migratiegegevens en drie voorbeeldkaarten. `.env.local` wordt niet door Git bijgehouden, zodat lokale wachtwoorden niet worden gepusht.
 
-Maak de database aan met de naam die je gekozen hebt in de vorige regel (PHPMyAdmin of via symfony commando).
+## Testen
 
-Type het commando ``composer install``
-
-Type het commando ``symfony serve``
+Voer `php bin/phpunit` uit. De testomgeving gebruikt een lokale SQLite-database en staat los van de ontwikkel-database.
 
 ### Happy Hunting!

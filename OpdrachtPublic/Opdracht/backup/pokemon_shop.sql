@@ -21,6 +21,11 @@ SET time_zone = "+00:00";
 -- Database: `pokemon_shop`
 --
 
+CREATE DATABASE IF NOT EXISTS `pokemon_shop`
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
+USE `pokemon_shop`;
+
 -- --------------------------------------------------------
 
 --
