@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pokemon;
+use App\Repository\PokemonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,20 @@ final class PokemonController extends AbstractController
         $pokemons = $entityManager->getRepository(Pokemon::class)->findAll();
         return $this->render('pokemon/index.html.twig', [
             'pokemons' => $pokemons,
+        ]);
+    }
+
+    #[Route('/pokemon/{id}', name: 'app_pokemon_show', requirements: ['id' => '\\d+'], methods: ['GET'])]
+    public function show(int $id, PokemonRepository $pokemonRepository): Response
+    {
+        $pokemon = $pokemonRepository->find($id);
+
+        if ($pokemon === null) {
+            throw $this->createNotFoundException('Deze Pokemon kaart bestaat niet.');
+        }
+
+        return $this->render('pokemon/show.html.twig', [
+            'pokemon' => $pokemon,
         ]);
     }
 }

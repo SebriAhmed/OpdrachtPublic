@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ pokemon.name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="card mx-auto text-dark" style="max-width: 22rem;">
+            <img src="{{ asset('images/' ~ pokemon.image) }}" class="card-img-top" alt="{{ pokemon.name }} kaart">
+            <div class="card-body">
+                <h1 class="card-title h3">{{ pokemon.name }}</h1>
+                <p class="card-text">{{ pokemon.description ?: 'Geen beschrijving beschikbaar.' }}</p>
+                <p class="card-text fw-bold">&euro;{{ pokemon.cardValue|number_format(2, ',', '.') }}</p>
+                <a href="{{ path('app_pokemon') }}" class="btn btn-info">Terug naar overzicht</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
