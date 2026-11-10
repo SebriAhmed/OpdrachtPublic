@@ -6,6 +6,14 @@
     <h1>Pokemon kaarten</h1>
 
     <div class="container">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" role="alert">{{ message }}</div>
+        {% endfor %}
+
+        <div class="text-end mb-4">
+            <a href="{{ path('app_pokemon_new') }}" class="btn btn-info">Voeg een kaart toe</a>
+        </div>
+
         <div class="row">
             {% for pokemon in pokemons %}
                 <div class="col-md-4 d-flex align-items-stretch">

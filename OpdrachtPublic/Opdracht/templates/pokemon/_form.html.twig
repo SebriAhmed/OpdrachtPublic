@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.cardValue) }}
+    {{ form_row(form.image) }}
+    {{ form_row(form.description) }}
+
+    <button class="btn btn-info">{{ button_label|default('Opslaan') }}</button>
+    <a href="{{ path('app_pokemon') }}" class="btn btn-secondary">Annuleren</a>
+{{ form_end(form) }}

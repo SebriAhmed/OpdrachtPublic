@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voeg een kaart toe{% endblock %}
+
+{% block body %}
+    <div class="container text-dark" style="max-width: 40rem;">
+        <h1 class="mb-4">Voeg een kaart toe</h1>
+
+        {% include 'pokemon/_form.html.twig' with {button_label: 'Toevoegen'} %}
+    </div>
+{% endblock %}
