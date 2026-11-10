@@ -57,4 +57,34 @@ final class PokemonController extends AbstractController
             'pokemon' => $pokemon,
         ]);
     }
+
+    #[Route('/pokemon/{id}/edit', name: 'app_pokemon_edit', requirements: ['id' => '\\d+'], methods: ['GET', 'POST'])]
+    public function edit(
+        int $id,
+        Request $request,
+        PokemonRepository $pokemonRepository,
+        EntityManagerInterface $entityManager,
+    ): Response {
+        $pokemon = $pokemonRepository->find($id);
+
+        if ($pokemon === null) {
+            throw $this->createNotFoundException('Deze Pokemon kaart bestaat niet.');
+        }
+
+        $form = $this->createForm(PokemonType::class, $pokemon);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            $this->addFlash('success', 'De Pokemon kaart is bijgewerkt.');
+
+            return $this->redirectToRoute('app_pokemon');
+        }
+
+        return $this->render('pokemon/edit.html.twig', [
+            'pokemon' => $pokemon,
+            'form' => $form,
+        ]);
+    }
 }

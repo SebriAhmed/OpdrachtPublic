@@ -23,7 +23,10 @@
                             <h5 class="card-title">{{ pokemon.name }}</h5>
                             <p class="card-text">&euro;{{ pokemon.cardValue|number_format(2, ',', '.') }}</p>
                         </div>
-                        <a href="{{ path('app_pokemon_show', {id: pokemon.id}) }}" class="btn btn-info">Meer info</a>
+                        <div class="d-flex gap-2 justify-content-center p-3 pt-0">
+                            <a href="{{ path('app_pokemon_show', {id: pokemon.id}) }}" class="btn btn-info">Meer info</a>
+                            <a href="{{ path('app_pokemon_edit', {id: pokemon.id}) }}" class="btn btn-secondary">Bewerken</a>
+                        </div>
                     </div>
                 </div>
             {% endfor %}

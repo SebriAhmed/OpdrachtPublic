@@ -10,7 +10,10 @@
                 <h1 class="card-title h3">{{ pokemon.name }}</h1>
                 <p class="card-text">{{ pokemon.description ?: 'Geen beschrijving beschikbaar.' }}</p>
                 <p class="card-text fw-bold">&euro;{{ pokemon.cardValue|number_format(2, ',', '.') }}</p>
-                <a href="{{ path('app_pokemon') }}" class="btn btn-info">Terug naar overzicht</a>
+                <div class="d-flex gap-2 justify-content-center">
+                    <a href="{{ path('app_pokemon') }}" class="btn btn-info">Terug naar overzicht</a>
+                    <a href="{{ path('app_pokemon_edit', {id: pokemon.id}) }}" class="btn btn-secondary">Bewerken</a>
+                </div>
             </div>
         </div>
     </div>
