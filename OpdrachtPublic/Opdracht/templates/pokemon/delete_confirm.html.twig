@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ pokemon.name }} verwijderen{% endblock %}
+
+{% block body %}
+    <div class="container text-dark">
+        <h1>Weet je zeker dat je {{ pokemon.name }} wilt verwijderen?</h1>
+
+        <div class="d-flex gap-2 justify-content-center mt-4">
+            <form method="post" action="{{ path('app_pokemon_delete', {id: pokemon.id}) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pokemon.id) }}">
+                <button class="btn btn-danger">Ja, kaart verwijderen</button>
+            </form>
+            <a href="{{ path('app_pokemon') }}" class="btn btn-info">Nee, terug</a>
+        </div>
+    </div>
+{% endblock %}

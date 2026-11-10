@@ -13,6 +13,7 @@
                 <div class="d-flex gap-2 justify-content-center">
                     <a href="{{ path('app_pokemon') }}" class="btn btn-info">Terug naar overzicht</a>
                     <a href="{{ path('app_pokemon_edit', {id: pokemon.id}) }}" class="btn btn-secondary">Bewerken</a>
+                    <a href="{{ path('app_pokemon_delete_confirm', {id: pokemon.id}) }}" class="btn btn-danger">Verwijderen</a>
                 </div>
             </div>
         </div>

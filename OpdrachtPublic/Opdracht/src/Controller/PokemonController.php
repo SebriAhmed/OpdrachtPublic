@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class PokemonController extends AbstractController
@@ -86,5 +87,44 @@ final class PokemonController extends AbstractController
             'pokemon' => $pokemon,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/pokemon/delete-confirm/{id}', name: 'app_pokemon_delete_confirm', requirements: ['id' => '\\d+'], methods: ['GET'])]
+    public function deleteConfirm(int $id, PokemonRepository $pokemonRepository): Response
+    {
+        $pokemon = $pokemonRepository->find($id);
+
+        if ($pokemon === null) {
+            throw $this->createNotFoundException('Deze Pokemon kaart bestaat niet.');
+        }
+
+        return $this->render('pokemon/delete_confirm.html.twig', [
+            'pokemon' => $pokemon,
+        ]);
+    }
+
+    #[Route('/pokemon/{id}/delete', name: 'app_pokemon_delete', requirements: ['id' => '\\d+'], methods: ['POST'])]
+    public function delete(
+        int $id,
+        Request $request,
+        PokemonRepository $pokemonRepository,
+        EntityManagerInterface $entityManager,
+    ): Response {
+        $pokemon = $pokemonRepository->find($id);
+
+        if ($pokemon === null) {
+            throw $this->createNotFoundException('Deze Pokemon kaart bestaat niet.');
+        }
+
+        if (!$this->isCsrfTokenValid('delete'.$pokemon->getId(), $request->request->getString('_token'))) {
+            throw new AccessDeniedHttpException('Ongeldig verwijderverzoek.');
+        }
+
+        $entityManager->remove($pokemon);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'De Pokemon kaart is verwijderd.');
+
+        return $this->redirectToRoute('app_pokemon');
     }
 }
